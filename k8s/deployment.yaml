@@ -16,7 +16,7 @@ spec:
       containers:
         - name: nginx-rotate
           image: srujan078/nginx-rotate-app:1.0.1
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           resources:
