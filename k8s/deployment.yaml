@@ -1,22 +1,28 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx-rotate-app
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  name: nginx-rotate
+  namespace: nginx-rotate
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/bvsrujan02-a11y/nginx-rotate-app.git
-    targetRevision: HEAD
-    path: k8s
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: nginx-rotate
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-rotate
+  template:
+    metadata:
+      labels:
+        app: nginx-rotate
+    spec:
+      containers:
+        - name: nginx-rotate
+          image: nginx-rotate-app:local
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
