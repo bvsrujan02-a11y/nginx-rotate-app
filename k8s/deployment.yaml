@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-rotate
+  namespace: nginx-rotate
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-rotate
+  template:
+    metadata:
+      labels:
+        app: nginx-rotate
+    spec:
+      containers:
+        - name: nginx-rotate
+          image: sanjeevtripurari/nginx-rotate-app:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
