@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/bvsrujan02-a11y/nginx-rotate-app.git`
+    repoURL: https://github.com/bvsrujan02-a11y/nginx-rotate-app.git
     targetRevision: main
     path: k8s
 
